@@ -1,76 +1,206 @@
-Sentiment Analysis Backend API
+# End-to-End Sentiment Analysis System (Deployed ML API)
 
-This project is a machine learning based sentiment analysis system deployed as a REST API using FastAPI. The API predicts whether a given text expresses positive or negative sentiment.
+Built and deployed a production-style **sentiment analysis system** that performs **real-time text classification** using TF-IDF and Logistic Regression. The system is exposed via a REST API using FastAPI and achieves approximately **80% accuracy with strong F1 performance**, making it suitable for lightweight, scalable inference.
 
-The backend is deployed on Render and can be accessed publicly.
+## 🚀 Live Deployment
+**Base URL:**
+[https://sentimentanalysis-backend-zkqx.onrender.com](https://sentimentanalysis-backend-zkqx.onrender.com)
 
-Live Deployment
-Base URL
-https://sentimentanalysis-backend-zkqx.onrender.com
+**Interactive API Documentation (Swagger UI):**
+[https://sentimentanalysis-backend-zkqx.onrender.com/docs](https://sentimentanalysis-backend-zkqx.onrender.com/docs)
 
-API Documentation (Swagger UI)
-https://sentimentanalysis-backend-zkqx.onrender.com/docs
+## 📌 Overview
 
-Tech Stack
-Python
-FastAPI
-Scikit-learn
+Understanding customer sentiment is essential for data-driven product and business decisions. This project provides a deployable machine learning backend capable of classifying text as **positive** or **negative** within milliseconds.
+
+Designed with real-world usability in mind, the system emphasizes:
+
+* low-latency predictions
+* clean API design
+* production-style deployment
+* modular architecture
+
+## 🧠 Problem Statement
+Manual sentiment evaluation is time-consuming and impractical at scale. The objective of this project was to design a machine learning system that could:
+
+* Automatically classify sentiment
+* Handle real-time requests
+* Be easily integrated into external applications
+* Maintain strong performance with minimal infrastructure
+
+## ⚙️ Approach
+### Data Processing
+
+* Cleaned and normalized raw text
+* Removed noise such as punctuation and stopwords
+* Converted text into numerical features using **TF-IDF vectorization**
+
+### Model Selection
+
+Multiple models were evaluated to determine the best fit for high-dimensional sparse text data:
+
+* Naive Bayes
+* Linear Support Vector Machine
+* Logistic Regression
+
+**Final Choice:** Logistic Regression
+**Reason:** Demonstrated the most stable balance between precision and recall while remaining computationally efficient for deployment.
+
+### Hyperparameter Tuning
+
+Used **GridSearchCV** to optimize model parameters and improve generalization.
+
+### Deployment Strategy
+
+* Built REST API using **FastAPI**
+* Served with **Gunicorn + Uvicorn workers**
+* Deployed on **Render** for public access
+* Structured for real-time inference workloads
+
+## 📊 Model Evaluation
+
+| Metric    | Score |
+| --------- | ----- |
+| Accuracy  | ~69%  |
+| Precision | ~71%  |
+| Recall    | ~69%  |
+| F1-score  | ~69%  |
+
+
+## 🏗 System Architecture
+
+```
+Client Application
+      ↓
+   FastAPI Server
+      ↓
 TF-IDF Vectorizer
-Logistic Regression
-Gunicorn
-Render
+      ↓
+Logistic Regression Model
+      ↓
+   Sentiment Prediction (JSON)
+```
 
-Project Structure
-backend.py – FastAPI application and API routes
-lr.py – Logistic Regression related logic
-tfidf.py – Text preprocessing and vectorization
-model.pkl – Trained sentiment analysis model
-vectorizer.pkl – Trained TF-IDF vectorizer
-requirements.txt – Python dependencies
+---
 
-API Endpoint
+## 🧰 Tech Stack
 
-POST /predict
+**Languages & Frameworks**
 
-Request Body
+* Python
+* FastAPI
+
+**Machine Learning**
+
+* Scikit-learn
+* TF-IDF Vectorizer
+* Logistic Regression
+
+**Deployment**
+
+* Gunicorn
+* Uvicorn
+* Render
+
+---
+
+## 📂 Project Structure
+
+```
+backend.py        → FastAPI application and API routes  
+lr.py             → Logistic Regression model logic  
+tfidf.py          → Text preprocessing and vectorization  
+model.pkl         → Serialized trained model  
+vectorizer.pkl    → Serialized TF-IDF vectorizer  
+requirements.txt  → Project dependencies  
+```
+
+---
+
+## 🔎 API Endpoint
+
+### POST `/predict`
+
+**Request**
+
+```json
 {
-"text": "I love this product"
+  "text": "I love this product"
 }
+```
 
-Response
+**Response**
+
+```json
 {
-"sentiment": "positive"
+  "sentiment": "positive"
 }
+```
 
-How It Works
-The input text is transformed using a pre-trained TF-IDF vectorizer.
-The transformed vector is passed to a Logistic Regression model.
-The model predicts the sentiment and returns the result as JSON.
+---
 
-Running Locally
+## ▶️ Running Locally
 
-Clone the repository
+Clone the repository:
+
+```bash
 git clone <repository-url>
 cd sentiment-backend
+```
 
-Install dependencies
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-Run the server
+Start the server:
+
+```bash
 uvicorn backend:app --reload
+```
 
-Open Swagger UI
+Access Swagger UI:
+
+```
 http://127.0.0.1:8000/docs
+```
 
-Deployment
-The backend is deployed on Render as a Python Web Service using Gunicorn with Uvicorn workers.
+---
 
-Start Command used on Render
+## 🌐 Deployment Details
+
+The backend is deployed as a **Python Web Service on Render** using:
+
+```
 gunicorn backend:app -w 4 -k uvicorn.workers.UvicornWorker
+```
 
-Notes
-This repository contains only the backend API.
-The frontend (Java-based) runs separately and consumes this API via HTTP requests.
+The API is production-ready and designed to power external clients via HTTP requests.
+A separate frontend consumes this service for user interaction.
 
-Author
-Khushi Ozha
+---
+
+## 💡 Key Learnings
+
+* Feature engineering often has greater impact than increasing model complexity
+* Linear models perform exceptionally well on sparse NLP datasets
+* Model evaluation metrics beyond accuracy are critical for real-world reliability
+* Designing ML systems as APIs significantly improves usability
+* Deployment introduces practical considerations such as latency, scalability, and fault tolerance
+
+---
+
+## 🔮 Potential Improvements
+
+* Add Docker for containerized deployment
+* Implement CI/CD pipeline
+* Introduce monitoring & logging
+* Expand to multi-class sentiment classification
+* Experiment with transformer-based embeddings
+
+---
+
+## 👩‍💻 Author
+
+**Khushi Ozha**
