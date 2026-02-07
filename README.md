@@ -1,6 +1,6 @@
 # End-to-End Sentiment Analysis System (Deployed ML API)
 
-Built and deployed a production-style **sentiment analysis system** that performs **real-time text classification** using TF-IDF and Logistic Regression. The system is exposed via a REST API using FastAPI and achieves approximately **80% accuracy with strong F1 performance**, making it suitable for lightweight, scalable inference.
+Built and deployed a production-style **sentiment analysis system** that performs **real-time text classification** using TF-IDF and Logistic Regression. The system is exposed via a REST API using FastAPI and achieves approximately **70% accuracy with strong F1 performance**, making it suitable for lightweight, scalable inference.
 
 ## 🚀 Live Deployment
 **Base URL:**
